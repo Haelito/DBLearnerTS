@@ -1,0 +1,18 @@
+{
+	"name": "LS_ASQL_Tailspin",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "Crea una conexión a una fuente de datos en Azure SQL",
+		"annotations": [],
+		"type": "AzureSqlDatabase",
+		"typeProperties": {
+			"server": "dbl-servicesrv.database.windows.net",
+			"database": "Tailspin",
+			"encrypt": "optional",
+			"trustServerCertificate": false,
+			"authenticationType": "SQL",
+			"userName": "usr_asql_integracion",
+			"encryptedCredential": "ew0KICAiVmVyc2lvbiI6ICIyMDE3LTExLTMwIiwNCiAgIlByb3RlY3Rpb25Nb2RlIjogIktleSIsDQogICJTZWNyZXRDb250ZW50VHlwZSI6ICJQbGFpbnRleHQiLA0KICAiQ3JlZGVudGlhbElkIjogIkRBVEFGQUNUT1JZQDg4QzlEMTRBLUExNDQtNDJCRC1CRkRELTU3RkYxOTUxOTlBRF83ZWVmOTEzYS0yOTJhLTRmNzctYWM5Yy03NjM2N2JjYWNkYzUiDQp9"
+		}
+	}
+}
