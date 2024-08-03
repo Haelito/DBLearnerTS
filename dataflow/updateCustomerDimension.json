@@ -118,22 +118,7 @@
 				"     format: 'table',",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true,",
-				"     errorHandlingOption: 'stopOnFirstError',",
-				"     mapColumn(",
-				"          CustomerID = SourceDB@CustomerID,",
-				"          Title = SourceDB@Title,",
-				"          FirstName = SourceDB@FirstName,",
-				"          MiddleName = SourceDB@MiddleName,",
-				"          LastName = SourceDB@LastName,",
-				"          Suffix = SourceDB@Suffix,",
-				"          CompanyName = SourceDB@CompanyName,",
-				"          SalesPerson = SourceDB@SalesPerson,",
-				"          EmailAddress = SourceDB@EmailAddress,",
-				"          Phone = SourceDB@Phone,",
-				"          InsertedDate,",
-				"          ModifiedDate,",
-				"          HashKey = DimCustomer@HashKey",
-				"     )) ~> SinkDimCustomer"
+				"     errorHandlingOption: 'stopOnFirstError') ~> SinkDimCustomer"
 			]
 		}
 	}
