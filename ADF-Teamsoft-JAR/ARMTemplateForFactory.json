@@ -481,22 +481,7 @@
 						"     format: 'table',",
 						"     skipDuplicateMapInputs: true,",
 						"     skipDuplicateMapOutputs: true,",
-						"     errorHandlingOption: 'stopOnFirstError',",
-						"     mapColumn(",
-						"          CustomerID = SourceDB@CustomerID,",
-						"          Title = SourceDB@Title,",
-						"          FirstName = SourceDB@FirstName,",
-						"          MiddleName = SourceDB@MiddleName,",
-						"          LastName = SourceDB@LastName,",
-						"          Suffix = SourceDB@Suffix,",
-						"          CompanyName = SourceDB@CompanyName,",
-						"          SalesPerson = SourceDB@SalesPerson,",
-						"          EmailAddress = SourceDB@EmailAddress,",
-						"          Phone = SourceDB@Phone,",
-						"          InsertedDate,",
-						"          ModifiedDate,",
-						"          HashKey = DimCustomer@HashKey",
-						"     )) ~> SinkDimCustomer"
+						"     errorHandlingOption: 'stopOnFirstError') ~> SinkDimCustomer"
 					]
 				}
 			},
@@ -708,6 +693,56 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/LS_ASQL_Tailspin')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DT_ASQL_TO_ASQL_SCD')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"description": "Transfer data from AzureSQL dbo.Customer to dbo.DimCustomer12\nUsing Slow Changing Dimension Type 1",
+				"activities": [
+					{
+						"name": "DT_ASQL_TO_ASQL_SCD",
+						"description": "Transfer data from AzureSQL dbo.Customer to dbo.DimCustomer12\nUsing Slow Changing Dimension Type 1",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "0.12:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "updateCustomerDimension",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"SourceDB": {},
+									"DimCustomer": {},
+									"SinkDimCustomer": {}
+								}
+							},
+							"staging": {},
+							"integrationRuntime": {
+								"referenceName": "SelfHostedIRAzure",
+								"type": "IntegrationRuntimeReference"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/updateCustomerDimension')]",
+				"[concat(variables('factoryId'), '/integrationRuntimes/SelfHostedIRAzure')]"
 			]
 		}
 	]
